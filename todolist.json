@@ -1,1 +1,1 @@
-[{"tache":"Ranger ma chambre"},{"fait":"Cuisiner"},{"tache":"Faire la vaiselle"},{"tache":"tets"},{"tache":"R\u00e9gler les bugs"}]
+[{"tache":"F","done":true},{"tache":"check","done":false},{"tache":"check","done":false},{"tache":["check"],"done":true},{"tache":"c","done":true}]

@@ -35,9 +35,9 @@ require 'contenu.php';
                             $json_arr = json_decode($json, true);
                             echo '<h2> A faire</h2>';   
                             echo '<table>';
-                            foreach ($json_arr as $value) {
+                            foreach ($json_arr as $value) if($value['done'] == false) {
                                 echo '<tr>';
-                                echo '<td><input type="checkbox" name="check" value="'.$value['tache'].'"/>'.$value['tache'].'</td>';
+                                echo '<td><input type="checkbox" name="check[]" value="'.$value['tache'].'"/>'.$value['tache'].'</td>';
                                 echo '</tr>';
                             }
                             echo '</table>';
@@ -54,9 +54,10 @@ require 'contenu.php';
                     echo '<h2> Fait</h2>';   
                     $json_arr = json_decode($json, true);  
                     echo '<table>';
-                    foreach ($json_arr as $value) {
+                    var_dump($json_arr);
+                    foreach ($json_arr as $value) if($value['done'] == true) {
                         echo '<tr>';
-                        echo '<td><input type="checkbox" name="check1" value="'.$value['fait'].'"/>'.$value['fait'].'</td>';
+                        echo '<td><input type="checkbox" name="check1[]" value="'.$value['tache'].'"/>'.$value['tache'].'</td>';
                         echo '</tr>';
                     }
                     echo '</table>';

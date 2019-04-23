@@ -12,12 +12,14 @@ if(isset($_POST['tache']) AND isset($_POST['valider'])){
 
 
     // add data
-    $json_arr[] = array('tache'=> $tache);
+    $json_arr[] = array('tache'=> $tache, 'done' => false);
     $checkJson = json_encode($json_arr); 
 
     // encode json and save to file
     file_put_contents('todolist.json', $checkJson);
     }
+
+
 
 //Tranférer dans Fait
 
@@ -25,19 +27,22 @@ $check = $_POST['check'];
 $supp = $_POST['supprimer'];
 
 if(isset($check) AND isset($supp)){
-    $tache = $_POST['tache'];
+    // $tache = $value['tache'];
     $json = file_get_contents("todolist.json");
 
     // var_dump($parsed_json);
     $json_arr = json_decode($json, true);
+    var_dump($check);
 
 
     // add data
-    $json_arr[] = array('fait'=> $tache);
+    foreach ($check as $val){
+    $json_arr[] = array('tache'=> $val['value'], 'done' =>true);
     $checkJson = json_encode($json_arr); 
+    }
 
     // encode json and save to file
-    file_put_contents('todolist.json', $checkJson1);
+    file_put_contents('todolist.json', $checkJson);
 
 }
 ?>

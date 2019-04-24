@@ -1,4 +1,10 @@
 <?php
+//Sanitize
+
+if (isset ($_POST['tache'])){
+    $tache= htmlspecialchars($_POST['tache']);
+}
+
 //Ajouter dans tâche
 
 if(isset($_POST['tache']) AND isset($_POST['valider'])){
@@ -9,7 +15,6 @@ if(isset($_POST['tache']) AND isset($_POST['valider'])){
 
     // var_dump($parsed_json);
     $json_arr = json_decode($json, true);
-
 
     // add data
     $json_arr[] = array('tache'=> $tache, 'done' => false);
@@ -26,23 +31,49 @@ if(isset($_POST['tache']) AND isset($_POST['valider'])){
 $check = $_POST['check'];
 $supp = $_POST['supprimer'];
 
-if(isset($check) AND isset($supp)){
-    // $tache = $value['tache'];
-    $json = file_get_contents("todolist.json");
+foreach($check as $value){
+    if(isset($check) AND isset($supp)){
+        $json = file_get_contents("todolist.json");
+        $json_arr = json_decode($json, true);
 
-    // var_dump($parsed_json);
-    $json_arr = json_decode($json, true);
-    var_dump($check);
+        // add data
 
+        foreach ($json_arr as $key => $val) {
+            if($val['tache'] === $value){
+                $json_arr[$key]['done'] = "true";
+            }
+        }
+        $checkJson = json_encode($json_arr); 
+        file_put_contents('todolist.json', $checkJson);
+    }
+}
 
-    // add data
-    foreach ($check as $val){
-    $json_arr[] = array('tache'=> $val['value'], 'done' =>true);
-    $checkJson = json_encode($json_arr); 
+// Delete
+
+$enleve = $_POST['enleve'];
+$check1 = $_POST['check1'];
+
+foreach($check1 as $value){
+    if(isset($check1) AND isset($enleve)){
+        $json = file_get_contents("todolist.json");
+        $json_arr = json_decode($json, true);
+
+        $arr_index = array();
+    foreach ($json_arr as $key => $val)
+    {
+        if ($val['tache'] === $value)
+        {
+            $arr_index[] = $key;
+        }
     }
 
-    // encode json and save to file
-    file_put_contents('todolist.json', $checkJson);
+    foreach ($arr_index as $i)
+    {
+        unset($json_arr[$i]);
+    }
 
+    $checkJson = json_encode($json_arr); 
+    file_put_contents('todolist.json', $checkJson);
+    }
 }
 ?>

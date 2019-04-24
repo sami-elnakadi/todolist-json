@@ -10,7 +10,7 @@ require 'contenu.php';
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css">
     <link type="text/css" rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
-    <link type="text/css" rel="stylesheet" href="./assets/css/.css">
+    <link type="text/css" rel="stylesheet" href="./assets/css/todo.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat|Pacifico" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <title>To do list AJAX</title>
@@ -37,7 +37,7 @@ require 'contenu.php';
                             echo '<table>';
                             foreach ($json_arr as $value) if($value['done'] == false) {
                                 echo '<tr>';
-                                echo '<td><input type="checkbox" name="check[]" value="'.$value['tache'].'"/>'.$value['tache'].'</td>';
+                                echo '<td><input class="check" onclick="check()" type="checkbox" name="check[]" value="'.$value['tache'].'"/>'.$value['tache'].'</td>';
                                 echo '</tr>';
                             }
                             echo '</table>';
@@ -51,13 +51,16 @@ require 'contenu.php';
                     <form role="form" name="inscription" method="post" action="formulaire.php" id='form'>
                     
                     <?php
+                    $tache = $_POST['tache'];
+
+                    $json = file_get_contents("todolist.json"); 
                     echo '<h2> Fait</h2>';   
                     $json_arr = json_decode($json, true);  
                     echo '<table>';
-                    var_dump($json_arr);
+                    // var_dump($json_arr);
                     foreach ($json_arr as $value) if($value['done'] == true) {
                         echo '<tr>';
-                        echo '<td><input type="checkbox" name="check1[]" value="'.$value['tache'].'"/>'.$value['tache'].'</td>';
+                        echo '<td><input class="check1" onclick="check1()" type="checkbox" name="check1[]" value="'.$value['tache'].'"/>'.$value['tache'].'</td>';
                         echo '</tr>';
                     }
                     echo '</table>';
@@ -70,7 +73,7 @@ require 'contenu.php';
                     <div class = "row">
                     <form role="form" name="inscription" method="post" action="formulaire.php" id='form'>
                         <div class="all col-md-12" id="envois">  
-                            <label for="tache" >Ajouter une tâche</label>
+                            <label for="tache" > <h3>Ajouter une tâche</h3></label>
                             <input class="form-control" type="text" maxlength="60" placeholder="Tâche à faire" name="tache" required/>
                         </div>
                     </div>
@@ -78,7 +81,7 @@ require 'contenu.php';
                     <button type="submit" class="btn btn-primary" name="valider" value="Envoyer">Ajouter</button>
                     </form>
     </div>
-    <!-- <script src="./assets/js/todo.js" type="text/javascript"></script> -->
+    <script src="./assets/js/list.js" type="text/javascript"></script>
 
 
 </body>
